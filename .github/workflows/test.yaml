@@ -6,7 +6,13 @@ jobs:
     some-job:
         runs-on: ubuntu-latest
         steps:
-            - uses: splunk/appinspect-api-action@v2
+            - name: Checkout
+              uses: actions/checkout@v3
+              with:
+                  submodules: false
+                  persist-credentials: false
+            - name: appinspect
+              uses: splunk/appinspect-api-action@v2
               with:
                   filePath: ./dist/Splunk_TA_MS_Security-0.265.4173399176.spl
                   splunkUser: ${{ secrets.USERNAME }}
