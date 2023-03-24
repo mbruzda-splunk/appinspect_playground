@@ -14,7 +14,7 @@ jobs:
             - name: appinspect
               uses: splunk/appinspect-api-action@v2
               with:
-                  filePath: ./dist/Splunk_TA_MS_Security-0.265.4173399176.spl
+                  filePath: ./dist/Splunk_TA_MS_Security-2.0.0.spl
                   splunkUser: ${{ secrets.USERNAME }}
                   splunkPassword: ${{ secrets.PASSWORD }}
                   includedTags: cloud
