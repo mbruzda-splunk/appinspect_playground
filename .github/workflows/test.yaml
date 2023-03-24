@@ -1,0 +1,16 @@
+name: test
+
+on: workflow_dispatch
+
+jobs:
+    some-job:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: splunk/appinspect-api-action@v2
+              with:
+                  filePath: ./dist/Splunk_TA_MS_Security-0.265.4173399176.spl
+                  splunkUser: ${{ secrets.USERNAME }}
+                  splunkPassword: ${{ secrets.PASSWORD }}
+                  includedTags: cloud
+                  failOnError: true
+                  failOnWarning: true
