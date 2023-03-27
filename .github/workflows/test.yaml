@@ -12,6 +12,9 @@ jobs:
                   submodules: false
                   persist-credentials: false
             - name: run python
+              env:
+                USERNAME: ${{ secrets.USERNAME }}
+                PASSWORD: ${{ secrets.PASSWORD }}
               run: |
                 pip install requests
-                python main.py
+                python main.py "$USERNAME" "$PASSWORD"
