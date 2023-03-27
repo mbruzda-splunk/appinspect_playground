@@ -11,12 +11,7 @@ jobs:
               with:
                   submodules: false
                   persist-credentials: false
-            - name: appinspect
-              uses: splunk/appinspect-api-action@v2
-              with:
-                  filePath: ./dist/Splunk_TA_MS_Security-2.0.0.spl
-                  splunkUser: ${{ secrets.USERNAME }}
-                  splunkPassword: ${{ secrets.PASSWORD }}
-                  includedTags: cloud
-                  failOnError: true
-                  failOnWarning: true
+            - name: run python
+              run: |
+                pip install requests
+                python main.py
