@@ -1,8 +1,10 @@
+import sys
+
 import requests
 from time import sleep
 from pathlib import Path
 import argparse
-
+from json import loads
 
 def login(username, password):
     login_url = "https://api.splunk.com/2.0/rest/login/splunk"
@@ -46,6 +48,13 @@ def submit(_token, _build, _payload):
 
         sleep(sleep_time)
     print(response.text)
+    return response.text
+
+
+def parse_results(results):
+    results = loads(results)
+    if results['info']['error'] > 0 or results['info']["failure"] > 0:
+        sys.exit("Error or failures in App Inspect")
 
 
 def main(username, password):
@@ -54,7 +63,9 @@ def main(username, password):
     payloads = [{}, {"included_tags": "cloud"}, {"included_tags": "self-service"}]
 
     for payload in payloads:
-        submit(_token=token, _build=build, _payload=payload)
+        parse_results(submit(_token=token, _build=build, _payload=payload))
+
+
 
 
 if __name__ == "__main__":
