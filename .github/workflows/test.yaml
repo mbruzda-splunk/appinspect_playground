@@ -23,6 +23,7 @@ jobs:
                 path: artifacts/package.spl
             - name: LS
               run: ls -la
+              working-directory: artifacts
             - name: run python
               env:
                 USERNAME: ${{ secrets.USERNAME }}
