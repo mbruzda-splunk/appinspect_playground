@@ -11,10 +11,17 @@ jobs:
               with:
                   submodules: false
                   persist-credentials: false
+            - name: upload-artifact
+              uses: actions/upload-artifact@v3
+              with:
+                name: package.spl
+                path: dist/Splunk_TA_MS_Security-2.0.0.spl
             - name: run python
               env:
                 USERNAME: ${{ secrets.USERNAME }}
                 PASSWORD: ${{ secrets.PASSWORD }}
+              with:
+                addon-url: ${{ needs.setup.outputs.addon-upload-path }}
               run: |
                 pip install requests
                 python main.py "$USERNAME" "$PASSWORD"

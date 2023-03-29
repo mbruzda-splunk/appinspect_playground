@@ -6,6 +6,7 @@ from pathlib import Path
 import argparse
 from json import loads
 
+
 def login(username, password):
     login_url = "https://api.splunk.com/2.0/rest/login/splunk"
     s = requests.Session()
@@ -53,7 +54,7 @@ def submit(_token, _build, _payload):
 
 def parse_results(results):
     results = loads(results)
-    if results['info']['error'] > 0 or results['info']["failure"] > 0:
+    if results["info"]["error"] > 0 or results["info"]["failure"] > 0:
         sys.exit("Error or failures in App Inspect")
 
 
@@ -64,8 +65,6 @@ def main(username, password):
 
     for payload in payloads:
         parse_results(submit(_token=token, _build=build, _payload=payload))
-
-
 
 
 if __name__ == "__main__":
