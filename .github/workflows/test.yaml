@@ -17,7 +17,7 @@ jobs:
                 name: package.spl
                 path: dist/Splunk_TA_MS_Security-2.0.0.spl
             - name: download artifact
-              uses: action/download-artifact@v3
+              uses: actions/download-artifact@v3
               with:
                 name: package.spl
             - name: LS
