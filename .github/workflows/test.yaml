@@ -3,7 +3,7 @@ name: test
 on: workflow_dispatch
 
 jobs:
-    some-job:
+    testing-job:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
@@ -11,11 +11,17 @@ jobs:
               with:
                   submodules: false
                   persist-credentials: false
-            - name: upload-artifact
+            - name: upload artifact
               uses: actions/upload-artifact@v3
               with:
                 name: package.spl
                 path: dist/Splunk_TA_MS_Security-2.0.0.spl
+            - name: download artifact
+              uses: action/download-artifact@v3
+              with:
+                name: package.spl
+            - name: LS
+              run: ls -la
             - name: run python
               env:
                 USERNAME: ${{ secrets.USERNAME }}
