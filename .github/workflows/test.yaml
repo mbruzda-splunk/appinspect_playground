@@ -20,7 +20,7 @@ jobs:
               uses: actions/download-artifact@v3
               with:
                 name: package.spl
-                path: artifacts/package.spl
+                path: artifacts
             - name: LS
               run: ls -la
               working-directory: artifacts
