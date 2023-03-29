@@ -18,12 +18,15 @@ jobs:
                 path: dist/Splunk_TA_MS_Security-2.0.0.spl
             - name: download artifact
               uses: actions/download-artifact@v3
+              id: download
               with:
                 name: package.spl
                 path: artifacts
             - name: LS
               run: ls -la
               working-directory: artifacts
+            - name: 'Echo download path'
+              run: echo ${{steps.download.outputs.download-path}}
             - name: run python
               env:
                 USERNAME: ${{ secrets.USERNAME }}
