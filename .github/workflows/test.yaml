@@ -26,11 +26,13 @@ jobs:
               run: ls -la
               working-directory: artifacts
             - name: 'Echo download path'
-              run: echo ${{steps.download.outputs.download-path}}
+              run: export PACKAGE_NAME=$(ls artifact -q)
             - name: run python
               env:
                 USERNAME: ${{ secrets.USERNAME }}
                 PASSWORD: ${{ secrets.PASSWORD }}
+                TEST: ${{ ls artifacts -q }}
               run: |
+                echo $TEST
                 pip install requests
                 python main.py "$USERNAME" "$PASSWORD"
