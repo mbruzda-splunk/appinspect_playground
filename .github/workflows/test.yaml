@@ -20,8 +20,6 @@ jobs:
               env:
                 USERNAME: ${{ secrets.USERNAME }}
                 PASSWORD: ${{ secrets.PASSWORD }}
-              with:
-                addon-url: ${{ needs.setup.outputs.addon-upload-path }}
               run: |
                 pip install requests
                 python main.py "$USERNAME" "$PASSWORD"
