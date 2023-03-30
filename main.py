@@ -71,12 +71,14 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("username")
     parser.add_argument("password")
+    parser.add_argument("addon_name")
     args = parser.parse_args()
 
     username = args.username
     password = args.password
+    addon_name = args.addon_name
 
-    build = Path("./dist/Splunk_TA_MS_Security-2.0.0.spl")
+    build = Path(f"./artifacts/{addon_name}")
 
     sleep_time = 60
     timeout = 600

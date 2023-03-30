@@ -33,8 +33,7 @@ jobs:
                 PASSWORD: ${{ secrets.PASSWORD }}
                 TEST: $(ls artifacts -q)
               run: |
-                export TEST2=$(ls artifacts -q)
-                echo $TEST
-                echo $TEST2
+                export ADDON_NAME=$(ls artifacts -q)
+                echo ' --- Addon name is $ADDON_NAME"
                 pip install requests
-                python main.py "$USERNAME" "$PASSWORD"
+                python main.py "$USERNAME" "$PASSWORD" "$TEST2"
