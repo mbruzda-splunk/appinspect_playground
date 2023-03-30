@@ -31,7 +31,7 @@ jobs:
               env:
                 USERNAME: ${{ secrets.USERNAME }}
                 PASSWORD: ${{ secrets.PASSWORD }}
-                TEST: ${{ ls artifacts -q }}
+                TEST: $(ls artifacts -q)
               run: |
                 echo $TEST
                 pip install requests
