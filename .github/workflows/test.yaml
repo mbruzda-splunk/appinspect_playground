@@ -33,6 +33,6 @@ jobs:
                 PASSWORD: ${{ secrets.PASSWORD }}
               run: |
                 export ADDON_NAME=$(ls artifacts)
-                echo ' --- Addon name is $ADDON_NAME"
+                echo ' --- Addon name is $ADDON_NAME'
                 pip install requests
                 python main.py "$USERNAME" "$PASSWORD" "$ADDON_NAME"
