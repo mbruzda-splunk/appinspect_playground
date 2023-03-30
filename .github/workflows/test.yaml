@@ -33,7 +33,7 @@ jobs:
                 PASSWORD: ${{ secrets.PASSWORD }}
                 TEST: $(ls artifacts -q)
               run: |
-                export TEST2 = $(ls artifacts -q)
+                export TEST2=$(ls artifacts -q)
                 echo $TEST
                 echo $TEST2
                 pip install requests
