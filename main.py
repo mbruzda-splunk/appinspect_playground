@@ -1,9 +1,9 @@
 import sys
-
 import requests
+import argparse
+
 from time import sleep
 from pathlib import Path
-import argparse
 from json import loads
 
 
@@ -34,7 +34,7 @@ def validate(_token, _build, _payload={}):
     return validation_response.json()["request_id"]
 
 
-def submit(_token, _build, _payload):
+def submit_and_download_html(_token, _build, _payload):
     request_id = validate(_token=_token, _build=_build, _payload=_payload)
     url = f"https://appinspect.splunk.com/v1/app/validate/status/{request_id}"
     headers = {
@@ -48,7 +48,11 @@ def submit(_token, _build, _payload):
             break
 
         sleep(sleep_time)
+
     print(response.text)
+
+    download_html_report(token=_token, request_id=request_id, payload=_payload)
+
     return response.text
 
 
@@ -58,13 +62,31 @@ def parse_results(results):
         sys.exit("Error or failures in App Inspect")
 
 
+def download_html_report(token, request_id, payload):
+    download_url = f"https://appinspect.splunk.com/v1/app/report/{request_id}"
+
+    download_payload = {}
+    headers = {
+        'Authorization': f'bearer {token}',
+        'Content-Type': 'text/html'
+    }
+
+    report_type = payload.get("included_tags", "")
+    filename = f"response_{report_type}"
+
+    response = requests.request("GET", download_url, headers=headers, data=payload)
+
+    with open(f'response/{filename}.html', 'w') as f:
+        f.write(response.text)
+
+
 def main(username, password):
     login_response = login(username, password)
     token = login_response.json()["data"]["token"]
     payloads = [{}, {"included_tags": "cloud"}, {"included_tags": "self-service"}]
 
     for payload in payloads:
-        parse_results(submit(_token=token, _build=build, _payload=payload))
+        parse_results(submit_and_download_html(_token=token, _build=build, _payload=payload))
 
 
 if __name__ == "__main__":
